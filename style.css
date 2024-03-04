@@ -1,0 +1,49 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+body {
+  background-color: #eee;
+  color: #444;
+  font-family: "Roboto", sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  margin: 40px auto;
+  max-width: 650px;
+  padding: 0 10px;
+}
+
+.domain-input {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 18px;
+  padding: 0.5rem;
+  width: 100%;
+}
+
+.domain-input:focus {
+  outline: 1px solid #005fcc;
+}
+
+.domain-list {
+  margin: 1rem 0;
+  padding: 0;
+}
+
+.domain-link {
+  color: #0000ee;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.domain-link:visited {
+  color: #551a8b;
+}
