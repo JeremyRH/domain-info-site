@@ -274,24 +274,41 @@ const tlds = {
 };
 
 const tldList = Object.keys(tlds);
+/** @type {HTMLTextAreaElement} */
 const domainInput = document.querySelector(".domain-input");
 const domainList = document.querySelector(".domain-list");
 
-function getDomainListItem(domain, tld) {
+function getDomainListItem(domainName, tld) {
   const tldInfo = tlds[tld];
-  const domainLink = `${domain}.${tld}`;
+  const domainLink = `${domainName}.${tld}`;
+  const whois = tldInfo?.whois?.(domainLink);
   return `<li>
-    <a class="domain-link" href="https://${domainLink}" target="_blank" rel="noreferrer">${domainLink}</a>
+    <a class="domain-link" href="http://${domainLink}" target="_blank" rel="noreferrer">${domainLink}</a>
     <span> - </span>
-    <a class="domain-link" href="${tldInfo.whois?.(
-      domainLink
-    )}" target="_blank" rel="noreferrer">whois</a>
+    <a class="domain-link" ${
+      whois ? `href="${whois}"` : 'style="color: red;"'
+    } target="_blank" rel="noreferrer">whois</a>
   </li>`;
 }
 
+const domainSeparators = /[\s,;]+/;
+
 domainInput.addEventListener("input", (e) => {
-  const value = e.target.value.trim();
-  domainList.innerHTML = value
-    ? tldList.map((tld) => getDomainListItem(value, tld)).join("")
-    : "";
+  domainInput.style.height = "auto";
+  domainInput.style.height = `${domainInput.scrollHeight + 2}px`;
+  const domains = e.target.value.trim().toLowerCase().split(domainSeparators);
+  domainList.innerHTML = domains
+    .map((domain) => {
+      const firstDot = domain.indexOf(".");
+      if (firstDot === -1) {
+        return "";
+      }
+      const domainName = domain.slice(0, firstDot);
+      const tld = domain.slice(firstDot + 1);
+      if (!tld) {
+        return "";
+      }
+      return getDomainListItem(domainName, tld);
+    })
+    .join("");
 });
