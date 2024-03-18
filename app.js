@@ -2,15 +2,15 @@
 
 const tlds = {
   ae: {
-    whois: (domain) =>
-      `https://whois.aeda.net.ae/whois/whois_local.jsp?qry=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.aeda.net.ae/whois/whois_local.jsp?qry=${domainName}.${tld}`,
   },
   ai: {
     whois: () => `https://whois.nic.ai`,
   },
   app: {
-    whois: (domain) =>
-      `https://pubapi-dot-domain-registry.appspot.com/whois/${domain}`,
+    whois: (domainName, tld) =>
+      `https://pubapi-dot-domain-registry.appspot.com/whois/${domainName}.${tld}`,
   },
   au: {
     whois: () => `https://whois.auda.org.au/`,
@@ -19,72 +19,76 @@ const tlds = {
     whois: () => `https://whois.nic.biz/`,
   },
   bot: {
-    whois: (domain) => `http://whois.nic.bot/?query=${domain}`,
+    whois: (domainName, tld) =>
+      `http://whois.nic.bot/?query=${domainName}.${tld}`,
   },
   ca: {
-    whois: (domain) =>
-      `https://www.cira.ca/ca-domains/whois/?domain=${domain}&whois=true`,
+    whois: (domainName, tld) =>
+      `https://www.cira.ca/ca-domains/whois/?domain=${domainName}.${tld}&whois=true`,
   },
   cam: {
     whois: () => `https://whois.nic.cam/`,
   },
   cc: {
-    whois: (domain) =>
-      `https://tld-webwhois.verisign.com/webwhois-ui/index.jsp?tld=cc&q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://tld-webwhois.verisign.com/webwhois-ui/index.jsp?tld=cc&q=${domainName}.${tld}`,
   },
   ch: {
-    whois: (domain) => `https://www.nic.ch/whois/?domain=${domain}`,
+    whois: (domainName, tld) =>
+      `https://www.nic.ch/whois/?domain=${domainName}.${tld}`,
   },
   chat: {
-    whois: (domain) => `https://whois.donuts.co/?q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.donuts.co/?q=${domainName}.${tld}`,
   },
   cl: {
-    whois: (domain) =>
-      `https://www.nic.cl/registry/Whois.do?d=${domain}&buscar=Submit`,
+    whois: (domainName, tld) =>
+      `https://www.nic.cl/registry/Whois.do?d=${domainName}.${tld}&buscar=Submit`,
   },
   cm: {
     whois: () => `https://nic.cm/en/whoiscm/`,
   },
   cn: {
-    whois: (domain) =>
-      `https://webwhois.cnnic.cn/WhoisServlet?queryType=Domain&domain=${domain}`,
+    whois: (domainName, tld) =>
+      `https://webwhois.cnnic.cn/WhoisServlet?queryType=Domain&domain=${domainName}.${tld}`,
   },
   co: {
-    whois: (domain) => `https://www.go.co/register/?domain=${domain}`,
+    whois: (domainName, tld) =>
+      `https://www.go.co/register/?domain=${domainName}.${tld}`,
   },
   "co.de": {
     whois: () => `https://www.google.com/search?q=.co.de+whois`,
   },
   "co.il": {
-    whois: (domain) => `https://www.isoc.org.il/whois?search=${domain}`,
+    whois: (domainName, tld) =>
+      `https://www.isoc.org.il/whois?search=${domainName}.${tld}`,
   },
   "co.uk": {
-    whois: (domain) => `https://www.nominet.uk/lookup/?domain=${domain}`,
+    whois: (domainName, tld) =>
+      `https://www.nominet.uk/lookup/?domain=${domainName}.${tld}`,
   },
   "co.za": {
-    whois: (domain) => `https://coza.net.za/cgi-bin/whois.sh?Domain=${domain}`,
+    whois: (domainName, tld) =>
+      `https://coza.net.za/cgi-bin/whois.sh?Domain=${domainName}.${tld}`,
   },
   com: {
-    whois: (domain) =>
-      `https://tld-webwhois.verisign.com/webwhois-ui/index.jsp?tld=com&q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://tld-webwhois.verisign.com/webwhois-ui/index.jsp?tld=com&q=${domainName}.${tld}`,
   },
   "com.au": {
     whois: () => `https://whois.auda.org.au/`,
   },
   "com.br": {
-    whois: (domain) =>
-      `https://registro.br/tecnologia/ferramentas/whois?search=${domain}`,
+    whois: (domainName, tld) =>
+      `https://registro.br/tecnologia/ferramentas/whois?search=${domainName}.${tld}`,
   },
   "com.cn": {
-    whois: (domain) =>
-      `https://webwhois.cnnic.cn/WhoisServlet?queryType=Domain&domain=${domain}`,
+    whois: (domainName, tld) =>
+      `https://webwhois.cnnic.cn/WhoisServlet?queryType=Domain&domain=${domainName}.${tld}`,
   },
   "com.es": {
-    whois: (domain) =>
-      `https://nic.es/sgnd/dominio/publicBuscarDominios.action?tDominio.nombreDominio=${domain.replace(
-        /\.com\.es$/,
-        ""
-      )}&flag=activado`,
+    whois: (domainName) =>
+      `https://nic.es/sgnd/dominio/publicBuscarDominios.action?tDominio.nombreDominio=${domainName}&flag=activado`,
   },
   "com.hk": {
     whois: () => `https://www.hkirc.hk/en/whois/`,
@@ -93,30 +97,31 @@ const tlds = {
     whois: () => `https://whois.mx/index.jsf?lng=en`,
   },
   "com.tr": {
-    whois: (domain) =>
-      `https://www.atakdomain.com/whois-sorgulama?domain=${domain}`,
+    whois: (domainName, tld) =>
+      `https://www.atakdomain.com/whois-sorgulama?domain=${domainName}.${tld}`,
   },
   contact: {
-    whois: (domain) => `https://whois.donuts.co/?q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.donuts.co/?q=${domainName}.${tld}`,
   },
   cyou: {
     whois: () => `https://lookup.icann.org/en`,
   },
   de: {
-    whois: (domain) => `https://webwhois.denic.de/?lang=en&query=${domain}`,
+    whois: (domainName, tld) =>
+      `https://webwhois.denic.de/?lang=en&query=${domainName}.${tld}`,
   },
   email: {
-    whois: (domain) => `https://whois.donuts.co/?q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.donuts.co/?q=${domainName}.${tld}`,
   },
   es: {
-    whois: (domain) =>
-      `https://nic.es/sgnd/dominio/publicBuscarDominios.action?tDominio.nombreDominio=${domain.replace(
-        /\.es$/,
-        ""
-      )}&flag=activado`,
+    whois: (domainName) =>
+      `https://nic.es/sgnd/dominio/publicBuscarDominios.action?tDominio.nombreDominio=${domainName}&flag=activado`,
   },
   eu: {
-    whois: (domain) => `https://whois.eurid.eu/en/search/?domain=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.eurid.eu/en/search/?domain=${domainName}.${tld}`,
   },
   fi: {
     whois: () =>
@@ -136,38 +141,43 @@ const tlds = {
     whois: () => `https://whois.nic.icu/`,
   },
   id: {
-    whois: (domain) => `https://pandi.id/whois/${domain}`,
+    whois: (domainName, tld) => `https://pandi.id/whois/${domainName}.${tld}`,
   },
   in: {
     whois: () => `https://whois.registry.in/`,
   },
   info: {
-    whois: (domain) => `https://whois.donuts.co/?q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.donuts.co/?q=${domainName}.${tld}`,
   },
   io: {
-    whois: (domain) => `https://nic.io/whois-search.htm?domain_name=${domain}`,
+    whois: (domainName, tld) =>
+      `https://nic.io/whois-search.htm?domain_name=${domainName}.${tld}`,
   },
   is: {
-    whois: (domain) => `https://www.isnic.is/en/whois/search?query=${domain}`,
+    whois: (domainName, tld) =>
+      `https://www.isnic.is/en/whois/search?query=${domainName}.${tld}`,
   },
   it: {
     whois: () => `https://web-whois.nic.it/`,
   },
   jp: {
-    whois: (domain) => `https://whois.jprs.jp/en/?key=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.jprs.jp/en/?key=${domainName}.${tld}`,
   },
   ke: {
     whois: () => `https://whois.kenic.or.ke/public.jsp`,
   },
   kr: {
-    whois: (domain) =>
-      `https://xn--c79as89aj0e29b77z.xn--3e0b707e/kor/whois/whois.jsp?query=${domain}`,
+    whois: (domainName, tld) =>
+      `https://xn--c79as89aj0e29b77z.xn--3e0b707e/kor/whois/whois.jsp?query=${domainName}.${tld}`,
   },
   legal: {
-    whois: (domain) => `https://whois.donuts.co/?q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.donuts.co/?q=${domainName}.${tld}`,
   },
   me: {
-    whois: (domain) => `https://domain.me/?query=${domain}`,
+    whois: (domainName, tld) => `https://domain.me/?query=${domainName}.${tld}`,
   },
   mx: {
     whois: () => `https://whois.mx`,
@@ -176,139 +186,185 @@ const tlds = {
     whois: () => `https://mynic.my/whois/`,
   },
   net: {
-    whois: (domain) =>
-      `https://tld-webwhois.verisign.com/webwhois-ui/index.jsp?tld=net&q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://tld-webwhois.verisign.com/webwhois-ui/index.jsp?tld=net&q=${domainName}.${tld}`,
   },
   nl: {
-    whois: (domain) => `https://www.sidn.nl/en/whois?q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://www.sidn.nl/en/whois?q=${domainName}.${tld}`,
   },
   no: {
-    whois: (domain) =>
-      `https://www.norid.no/en/domeneoppslag/hvem-har-domenenavnet/?query=${domain}`,
+    whois: (domainName, tld) =>
+      `https://www.norid.no/en/domeneoppslag/hvem-har-domenenavnet/?query=${domainName}.${tld}`,
   },
   nz: {
-    whois: (domain) =>
-      `https://dnc.org.nz/whois/whois-lookup/?domain_name=${domain.replace(
-        /\.nz$/,
-        ""
-      )}#Form_show`,
+    whois: (domainName) =>
+      `https://dnc.org.nz/whois/whois-lookup/?domain_name=${domainName}#Form_show`,
   },
   online: {
     whois: () => `https://whois.nic.online/`,
   },
   org: {
-    whois: (domain) => `https://whois.publicinterestregistry.org/?q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.publicinterestregistry.org/?q=${domainName}.${tld}`,
   },
   ph: {
-    whois: (domain) => `https://whois.dot.ph/whois?search=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.dot.ph/whois?search=${domainName}.${tld}`,
   },
   pl: {
-    whois: (domain) => `https://www.dns.pl/en/whois?domainName=${domain}`,
+    whois: (domainName, tld) =>
+      `https://www.dns.pl/en/whois?domainName=${domainName}.${tld}`,
   },
   pro: {
-    whois: (domain) => `https://whois.donuts.co/?q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.donuts.co/?q=${domainName}.${tld}`,
   },
   pt: {
-    whois: (domain) =>
-      `https://www.pt.pt/pt/ferramentas/whois/detalhes/?site=${domain.replace(
-        /\.pt$/,
-        ""
-      )}&tld=.pt`,
+    whois: (domainName) =>
+      `https://www.pt.pt/pt/ferramentas/whois/detalhes/?site=${domainName}&tld=.pt`,
   },
   pw: {
-    whois: (domain) => `https://registry.pw/whois/?query=${domain}&output=nice`,
+    whois: (domainName, tld) =>
+      `https://registry.pw/whois/?query=${domainName}.${tld}&output=nice`,
   },
   rs: {
-    whois: (domain) => `https://www.rnids.rs/en/whois/${domain}`,
+    whois: (domainName, tld) =>
+      `https://www.rnids.rs/en/whois/${domainName}.${tld}`,
   },
   se: {
-    whois: (domain) =>
-      `https://internetstiftelsen.se/en/search-domains/?q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://internetstiftelsen.se/en/search-domains/?q=${domainName}.${tld}`,
   },
   services: {
-    whois: (domain) => `https://whois.donuts.co/?q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.donuts.co/?q=${domainName}.${tld}`,
   },
   sg: {
-    whois: (domain) => `https://www.sgnic.sg/domain-search?SearchKey=${domain}`,
+    whois: (domainName, tld) =>
+      `https://www.sgnic.sg/domain-search?SearchKey=${domainName}.${tld}`,
   },
   shop: {
-    whois: (domain) => `https://get.shop/getdomain/${domain}`,
+    whois: (domainName, tld) =>
+      `https://get.shop/getdomain/${domainName}.${tld}`,
   },
   site: {
-    whois: (domain) =>
-      `https://centralnicregistry.com/support/whois?object=${domain}`,
+    whois: (domainName, tld) =>
+      `https://centralnicregistry.com/support/whois?object=${domainName}.${tld}`,
   },
   store: {
-    whois: (domain) =>
-      `https://centralnicregistry.com/support/whois?object=${domain}`,
+    whois: (domainName, tld) =>
+      `https://centralnicregistry.com/support/whois?object=${domainName}.${tld}`,
   },
   support: {
-    whois: (domain) => `https://whois.donuts.co/?q=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.donuts.co/?q=${domainName}.${tld}`,
   },
   to: {
     whois: () => `https://register.to/whois-lookup/`,
   },
   top: {
-    whois: (domain) =>
-      `https://www.nic.top/en/whois.asp?topdomain=${domain.replace(
-        /\.top$/,
-        ""
-      )}`,
+    whois: (domainName) =>
+      `https://www.nic.top/en/whois.asp?topdomain=${domainName}`,
   },
   uk: {
-    whois: (domain) => `https://www.nominet.uk/lookup/?domain=${domain}`,
+    whois: (domainName, tld) =>
+      `https://www.nominet.uk/lookup/?domain=${domainName}.${tld}`,
   },
   us: {
-    whois: (domain) => `https://www.about.us/register?domain=${domain}`,
+    whois: (domainName, tld) =>
+      `https://www.about.us/register?domain=${domainName}.${tld}`,
   },
   vip: {
-    whois: (domain) =>
-      `https://domains.registry.godaddy/search?domain=${domain}`,
+    whois: (domainName, tld) =>
+      `https://domains.registry.godaddy/search?domain=${domainName}.${tld}`,
   },
   vn: {
-    whois: (domain) => `https://whois.inet.vn/whois?domain=${domain}`,
+    whois: (domainName, tld) =>
+      `https://whois.inet.vn/whois?domain=${domainName}.${tld}`,
   },
   xyz: {
     whois: () => `https://whois.nic.xyz/`,
   },
 };
 
-const tldList = Object.keys(tlds);
-/** @type {HTMLTextAreaElement} */
-const domainInput = document.querySelector(".domain-input");
-const domainList = document.querySelector(".domain-list");
-
-function getDomainListItem(domainName, tld) {
-  const tldInfo = tlds[tld];
-  const domainLink = `${domainName}.${tld}`;
-  const whois = tldInfo?.whois?.(domainLink);
-  return `<li>
-    <a class="domain-link" href="http://${domainLink}" target="_blank" rel="noreferrer">${domainLink}</a>
-    <span> - </span>
-    <a class="domain-link" ${
-      whois ? `href="${whois}"` : 'style="color: red;"'
-    } target="_blank" rel="noreferrer">whois</a>
-  </li>`;
+function debounce(fn, delay) {
+  let timeout;
+  return function (...args) {
+    clearTimeout(timeout);
+    timeout = setTimeout(() => fn(...args), delay);
+  };
 }
 
+function h(elName, props, ...children) {
+  const el = document.createElement(elName);
+  for (const [key, value] of Object.entries(props)) {
+    el[key] = value;
+  }
+  el.append(...children);
+  return el;
+}
+
+function domainItemEl(domainName, tld) {
+  const whois = tlds[tld]?.whois?.(domainName, tld);
+
+  return h(
+    "li",
+    {},
+    h(
+      "a",
+      {
+        className: "domain-link",
+        href: `http://${domainName}.${tld}`,
+        target: "_blank",
+        rel: "noreferrer",
+      },
+      `${domainName}.${tld}`
+    ),
+    h("span", {}, " - "),
+    h(
+      "a",
+      {
+        className: "domain-link",
+        href: whois || "#",
+        target: whois ? "_blank" : "",
+        rel: "noreferrer",
+        style: whois ? "" : "color: red;",
+      },
+      "whois"
+    )
+  );
+}
+
+/** @type {HTMLUListElement} */
+const domainList = document.querySelector(".domain-list");
 const domainSeparators = /[\s,;]+/;
 
-domainInput.addEventListener("input", (e) => {
-  domainInput.style.height = "auto";
-  domainInput.style.height = `${domainInput.scrollHeight + 2}px`;
+const renderDomains = debounce((e) => {
   const domains = e.target.value.trim().toLowerCase().split(domainSeparators);
-  domainList.innerHTML = domains
-    .map((domain) => {
+
+  domainList.replaceChildren(
+    ...domains.reduce((domainEls, domain) => {
       const firstDot = domain.indexOf(".");
       if (firstDot === -1) {
-        return "";
+        return domainEls;
       }
       const domainName = domain.slice(0, firstDot);
       const tld = domain.slice(firstDot + 1);
       if (!tld) {
-        return "";
+        return domainEls;
       }
-      return getDomainListItem(domainName, tld);
-    })
-    .join("");
+      domainEls.push(domainItemEl(domainName, tld));
+      return domainEls;
+    }, [])
+  );
+}, 150);
+
+/** @type {HTMLTextAreaElement} */
+const domainInput = document.querySelector(".domain-input");
+
+domainInput.addEventListener("input", (e) => {
+  domainInput.style.height = "auto";
+  domainInput.style.height = `${domainInput.scrollHeight + 2}px`;
+  renderDomains(e);
 });
