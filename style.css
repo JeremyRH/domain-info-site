@@ -34,6 +34,17 @@ body {
   outline: 1px solid #005fcc;
 }
 
+.registrar-fieldset {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 1em;
+}
+
+.registrar-checkbox {
+  align-items: center;
+  display: flex;
+}
+
 .domain-list {
   margin: 1rem 0;
   padding: 0;

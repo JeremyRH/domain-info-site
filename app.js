@@ -228,6 +228,10 @@ const tlds = {
     whois: (domainName, tld) =>
       `https://registry.pw/whois/?query=${domainName}.${tld}&output=nice`,
   },
+  ro: {
+    whois: (domainName, tld) =>
+      `https://rotld.ro/whois/?domain=${domainName}.${tld}`,
+  },
   rs: {
     whois: (domainName, tld) =>
       `https://www.rnids.rs/en/whois/${domainName}.${tld}`,
@@ -245,8 +249,7 @@ const tlds = {
       `https://www.sgnic.sg/domain-search?SearchKey=${domainName}.${tld}`,
   },
   shop: {
-    whois: (domainName, tld) =>
-      `https://get.shop/getdomain/${domainName}.${tld}`,
+    whois: () => `https://whois.nic.shop/`,
   },
   site: {
     whois: (domainName, tld) =>
@@ -288,6 +291,39 @@ const tlds = {
   },
 };
 
+const registrars = {
+  "1API": {
+    whois: (domainName, tld) =>
+      `https://www.1api.net/whois?query=${domainName}.${tld}`,
+    linkHidden: true,
+  },
+  Dynadot: {
+    whois: (domainName, tld) =>
+      `https://www.dynadot.com/domain/whois?domain=${domainName}.${tld}`,
+    linkHidden: true,
+  },
+  GoDaddy: {
+    whois: (domainName, tld) =>
+      `https://www.godaddy.com/whois/results.aspx?domainName=${domainName}.${tld}`,
+    linkHidden: true,
+  },
+  Namecheap: {
+    whois: (domainName, tld) =>
+      `https://www.namecheap.com/domains/whois/result?domain=${domainName}.${tld}`,
+    linkHidden: true,
+  },
+  NameSilo: {
+    whois: (domainName, tld) =>
+      `https://www.namesilo.com/whois?query=${domainName}.${tld}`,
+    linkHidden: true,
+  },
+  "Squarespace/Google": {
+    whois: (domainName, tld) =>
+      `https://pubapi-dot-domain-registry.appspot.com/whois/${domainName}.${tld}`,
+    linkHidden: true,
+  },
+};
+
 function debounce(fn, delay) {
   let timeout;
   return function (...args) {
@@ -303,6 +339,14 @@ function h(elName, props, ...children) {
   }
   el.append(...children);
   return el;
+}
+
+/** @type {HTMLUListElement} */
+const domainList = document.querySelector(".domain-list");
+const domainSeparators = /[\s,;]+/;
+
+function getDomains() {
+  return domainInput.value.trim().toLowerCase().split(domainSeparators);
 }
 
 function domainItemEl(domainName, tld) {
@@ -332,16 +376,30 @@ function domainItemEl(domainName, tld) {
         style: whois ? "" : "color: red;",
       },
       "whois"
-    )
+    ),
+    ...Object.entries(registrars).flatMap(([registrarName, registrar]) => {
+      if (registrar.linkHidden) {
+        return [];
+      }
+      return [
+        h("span", {}, " - "),
+        h(
+          "a",
+          {
+            className: "domain-link",
+            href: registrar.whois(domainName, tld),
+            target: "_blank",
+            rel: "noreferrer",
+          },
+          registrarName
+        ),
+      ];
+    })
   );
 }
 
-/** @type {HTMLUListElement} */
-const domainList = document.querySelector(".domain-list");
-const domainSeparators = /[\s,;]+/;
-
-const renderDomains = debounce((e) => {
-  const domains = e.target.value.trim().toLowerCase().split(domainSeparators);
+function renderDomains() {
+  const domains = getDomains();
 
   domainList.replaceChildren(
     ...domains.reduce((domainEls, domain) => {
@@ -358,13 +416,35 @@ const renderDomains = debounce((e) => {
       return domainEls;
     }, [])
   );
-}, 150);
+}
+
+function registrarCheckboxEl(registrarName, onclick) {
+  return h(
+    "div",
+    { className: "registrar-checkbox" },
+    h("input", { type: "checkbox", id: registrarName, onclick }),
+    h("label", { htmlFor: registrarName }, registrarName)
+  );
+}
+
+/** @type {HTMLFieldSetElement} */
+const registrarFieldset = document.querySelector(".registrar-fieldset");
+
+for (const [registrarName, registrar] of Object.entries(registrars)) {
+  registrarFieldset.append(
+    registrarCheckboxEl(registrarName, (e) => {
+      registrar.linkHidden = !e.target.checked;
+      renderDomains();
+    })
+  );
+}
 
 /** @type {HTMLTextAreaElement} */
 const domainInput = document.querySelector(".domain-input");
+const renderDomainsOnInput = debounce(renderDomains, 100);
 
-domainInput.addEventListener("input", (e) => {
+domainInput.addEventListener("input", () => {
   domainInput.style.height = "auto";
   domainInput.style.height = `${domainInput.scrollHeight + 2}px`;
-  renderDomains(e);
+  renderDomainsOnInput();
 });
