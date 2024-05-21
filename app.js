@@ -15,6 +15,10 @@ const tlds = {
   au: {
     whois: () => `https://whois.auda.org.au/`,
   },
+  be: {
+    whois: (domainName, tld) =>
+      `https://www.dnsbelgium.be/en/whois/info/${domainName}.${tld}/details`,
+  },
   biz: {
     whois: () => `https://whois.nic.biz/`,
   },
@@ -27,7 +31,8 @@ const tlds = {
       `https://www.cira.ca/ca-domains/whois/?domain=${domainName}.${tld}&whois=true`,
   },
   cam: {
-    whois: () => `https://whois.nic.cam/`,
+    whois: (domainName, tld) =>
+      `https://centralnicregistry.com/support/whois?object=${domainName}.${tld}`,
   },
   cc: {
     whois: (domainName, tld) =>
@@ -107,9 +112,17 @@ const tlds = {
   cyou: {
     whois: () => `https://lookup.icann.org/en`,
   },
+  cz: {
+    whois: (domainName, tld) =>
+      `https://www.nic.cz/whois/domain/${domainName}.${tld}`,
+  },
   de: {
     whois: (domainName, tld) =>
       `https://webwhois.denic.de/?lang=en&query=${domainName}.${tld}`,
+  },
+  dk: {
+    whois: (domainName, tld) =>
+      `https://punktum.dk/en/domain/available?domain=${domainName}.${tld}`,
   },
   email: {
     whois: (domainName, tld) =>
@@ -132,13 +145,22 @@ const tlds = {
       `https://www.afnic.fr/en/domain-names-and-support/everything-there-is-to-know-about-domain-names/find-a-domain-name-or-a-holder-using-whois/`,
   },
   help: {
-    whois: () => `https://whois.nic.help/`,
+    whois: (domainName, tld) =>
+      `https://centralnicregistry.com/support/whois?object=${domainName}.${tld}`,
   },
   hk: {
     whois: () => `https://www.hkirc.hk/en/whois/`,
   },
+  hr: {
+    whois: () => `https://domene.hr/en/portal/about/web-whois`,
+  },
+  hu: {
+    whois: (domainName, tld) =>
+      `https://info.domain.hu/webwhois/en/domain/${domainName}.${tld}`,
+  },
   icu: {
-    whois: () => `https://whois.nic.icu/`,
+    whois: (domainName, tld) =>
+      `https://centralnicregistry.com/support/whois?object=${domainName}.${tld}`,
   },
   id: {
     whois: (domainName, tld) => `https://pandi.id/whois/${domainName}.${tld}`,
@@ -178,6 +200,10 @@ const tlds = {
   },
   me: {
     whois: (domainName, tld) => `https://domain.me/?query=${domainName}.${tld}`,
+  },
+  mobi: {
+    whois: (domainName, tld) =>
+      `https://whois.donuts.co/?q=${domainName}.${tld}`,
   },
   mx: {
     whois: () => `https://whois.mx`,
@@ -264,11 +290,15 @@ const tlds = {
       `https://whois.donuts.co/?q=${domainName}.${tld}`,
   },
   to: {
-    whois: () => `https://register.to/whois-lookup/`,
+    whois: (domainName, tld) =>
+      `https://www.tonic.to/whois?=${domainName}.${tld}`,
   },
   top: {
     whois: (domainName) =>
       `https://www.nic.top/en/whois.asp?topdomain=${domainName}`,
+  },
+  tv: {
+    whois: () => `https://whois.nic.tv/`,
   },
   uk: {
     whois: (domainName, tld) =>
@@ -279,15 +309,14 @@ const tlds = {
       `https://www.about.us/register?domain=${domainName}.${tld}`,
   },
   vip: {
-    whois: (domainName, tld) =>
-      `https://domains.registry.godaddy/search?domain=${domainName}.${tld}`,
+    whois: () => `https://whois.nic.vip/`,
   },
   vn: {
-    whois: (domainName, tld) =>
-      `https://whois.inet.vn/whois?domain=${domainName}.${tld}`,
+    whois: () => `https://vnnic.vn/en/whois-information?lang=en`,
   },
   xyz: {
-    whois: () => `https://whois.nic.xyz/`,
+    whois: (domainName, tld) =>
+      `https://centralnicregistry.com/support/whois?object=${domainName}.${tld}`,
   },
 };
 
